@@ -1,6 +1,7 @@
 import { IsString, IsDate, IsBoolean } from 'class-validator';
 
 export class CreateEmpresaDto {
+  @IsString()
   nome: string;
   codigo: string;
   data_cadastro: Date;

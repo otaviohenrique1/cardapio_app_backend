@@ -40,6 +40,6 @@ export class AdministradorController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.administradorService.remove(id);
+    return this.administradorService.remove(+id);
   }
 }

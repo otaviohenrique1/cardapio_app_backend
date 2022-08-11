@@ -8,6 +8,9 @@ import { Administrador } from './administrador/entities/administrador.entity';
 import { ClientesModule } from './clientes/clientes.module';
 import { ProdutosModule } from './produtos/produtos.module';
 import { EmpresasModule } from './empresas/empresas.module';
+import { PedidosModule } from './pedidos/pedidos.module';
+import { IngredientesModule } from './ingredientes/ingredientes.module';
+import { ImagensModule } from './imagens/imagens.module';
 
 @Module({
   imports: [
@@ -23,9 +26,12 @@ import { EmpresasModule } from './empresas/empresas.module';
         true /* AVISO => A configuração synchronize: true não deve ser usada na produção - caso contrário, você poderá perder dados de produção. */,
     }),
     AdministradorModule,
+    EmpresasModule,
     ClientesModule,
     ProdutosModule,
-    EmpresasModule,
+    IngredientesModule,
+    ImagensModule,
+    PedidosModule,
   ],
   controllers: [AppController],
   providers: [AppService],

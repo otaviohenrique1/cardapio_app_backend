@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CreateAdministradorDto } from './dto/create-administrador.dto';
 import { UpdateAdministradorDto } from './dto/update-administrador.dto';
 import { Administrador } from './entities/administrador.entity';
@@ -12,8 +12,10 @@ export class AdministradorService {
     private administradorRepository: Repository<Administrador>,
   ) {}
 
-  create(createAdministradorDto: CreateAdministradorDto) {
-    return 'This action adds a new administrador';
+  create(
+    createAdministradorDto: CreateAdministradorDto,
+  ): Promise<CreateAdministradorDto & Administrador> {
+    return this.administradorRepository.save(createAdministradorDto);
   }
 
   findAll(): Promise<Administrador[]> {
@@ -24,11 +26,14 @@ export class AdministradorService {
     return this.administradorRepository.findOneBy({ id });
   }
 
-  update(id: number, updateAdministradorDto: UpdateAdministradorDto) {
-    return `This action updates a #${id} administrador`;
+  update(
+    id: number,
+    updateAdministradorDto: UpdateAdministradorDto,
+  ): Promise<UpdateResult> {
+    return this.administradorRepository.update(id, updateAdministradorDto);
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: number): Promise<void> {
     await this.administradorRepository.delete(id);
   }
 }

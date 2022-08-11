@@ -1,5 +1,6 @@
 import { Administrador } from 'src/administrador/entities/administrador.entity';
 import { Cliente } from 'src/clientes/entities/cliente.entity';
+import { Produto } from 'src/produtos/entities/produto.entity';
 import {
   Entity,
   Column,
@@ -48,4 +49,7 @@ export class Empresa {
   /* 1 empresa para muitos clientes */
   @OneToMany(() => Cliente, (cliente) => cliente.empresa)
   clientes: Cliente[];
+
+  @OneToMany(() => Produto, (produto) => produto.empresa)
+  produtos: Produto[];
 }

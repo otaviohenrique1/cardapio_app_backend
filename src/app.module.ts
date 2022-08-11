@@ -11,6 +11,9 @@ import { EmpresasModule } from './empresas/empresas.module';
 import { PedidosModule } from './pedidos/pedidos.module';
 import { IngredientesModule } from './ingredientes/ingredientes.module';
 import { ImagensModule } from './imagens/imagens.module';
+import { PedidoItemModule } from './pedido-item/pedido-item.module';
+import { IngredientesOpcionaisModule } from './ingredientes-opcionais/ingredientes-opcionais.module';
+import { IngredientesRemoviveisModule } from './ingredientes-removiveis/ingredientes-removiveis.module';
 
 @Module({
   imports: [
@@ -32,6 +35,9 @@ import { ImagensModule } from './imagens/imagens.module';
     IngredientesModule,
     ImagensModule,
     PedidosModule,
+    PedidoItemModule,
+    IngredientesOpcionaisModule,
+    IngredientesRemoviveisModule,
   ],
   controllers: [AppController],
   providers: [AppService],

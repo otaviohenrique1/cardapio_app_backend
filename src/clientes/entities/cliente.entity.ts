@@ -1,4 +1,5 @@
 import { Empresa } from 'src/empresas/entities/empresa.entity';
+import { Pedido } from 'src/pedidos/entities/pedido.entity';
 import {
   Entity,
   Column,
@@ -7,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('cliente')
@@ -61,4 +63,8 @@ export class Cliente {
 
   @Column({ type: 'integer', unsigned: true })
   empresaId: number;
+
+  /* 1 ou mais pedidos para 1 cliente */
+  @OneToMany(() => Pedido, (pedido) => pedido.cliente)
+  pedidos: Pedido[];
 }

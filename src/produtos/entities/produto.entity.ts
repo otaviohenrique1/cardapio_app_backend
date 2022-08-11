@@ -1,6 +1,8 @@
 import { Empresa } from 'src/empresas/entities/empresa.entity';
 import { Imagem } from 'src/imagens/entities/imagem.entity';
+import { IngredienteOpcional } from 'src/ingredientes-opcionais/entities/ingrediente-opcional.entity';
 import { Ingrediente } from 'src/ingredientes/entities/ingrediente.entity';
+import { PedidoItem } from 'src/pedido-item/entities/pedido-item.entity';
 import {
   Entity,
   Column,
@@ -76,4 +78,17 @@ export class Produto {
 
   @Column({ type: 'integer', unsigned: true })
   empresaId: number;
+
+  /* Arrumar */
+  /* Ver se vai renomear de 'PedidoRefeicao' para 'PedidoItem' ou 'PedidoProduto' */
+  @OneToOne(() => PedidoItem, (pedido_item) => pedido_item.refeicao)
+  pedido_item: PedidoItem;
+
+  /* 1 produto do pedido pode ter nenhum ou 1 ou mais opcionais */
+  /* Ver se vai ser opcional */
+  /* Ver se vai ser cadastrado no cadastro da refeicao */
+  @OneToMany(() => IngredienteOpcional, (opcional) => opcional.produto, {
+    cascade: ['insert', 'update', 'remove'],
+  })
+  lista_opcionais: IngredienteOpcional[];
 }

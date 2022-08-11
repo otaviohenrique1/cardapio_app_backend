@@ -1,9 +1,12 @@
+import { IngredienteOpcional } from 'src/ingredientes-opcionais/entities/ingrediente-opcional.entity';
+import { IngredienteRemovivel } from 'src/ingredientes-removiveis/entities/ingrediente-removivel.entity';
 import { Produto } from 'src/produtos/entities/produto.entity';
 import {
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -24,6 +27,9 @@ export class Ingrediente {
   @Column()
   removivel: boolean;
 
+  @Column()
+  opcional: boolean;
+
   /*
   @Column()
   removivel: string; // ('Removivel' e 'Não removivel')
@@ -36,4 +42,18 @@ export class Ingrediente {
 
   @Column({ type: 'integer', unsigned: true })
   produtoId: number;
+
+  /* Arrumar */
+  @OneToOne(
+    () => IngredienteRemovivel,
+    (ingrediente_removivel) => ingrediente_removivel.ingrediente,
+  )
+  ingrediente_removivel: IngredienteRemovivel;
+
+  /* Arrumar */
+  @OneToOne(
+    () => IngredienteOpcional,
+    (ingrediente_opcional) => ingrediente_opcional.ingrediente,
+  )
+  ingrediente_opcional: IngredienteOpcional;
 }

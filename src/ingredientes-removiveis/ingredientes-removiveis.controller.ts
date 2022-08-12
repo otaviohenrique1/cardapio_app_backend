@@ -1,15 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { IngredientesRemoviveisService } from './ingredientes-removiveis.service';
-import { CreateIngredientesRemoviveiDto } from './dto/create-ingredientes-removivei.dto';
-import { UpdateIngredientesRemoviveiDto } from './dto/update-ingredientes-removivei.dto';
+import { CreateIngredienteRemovivelDto } from './dto/create-ingrediente-removivel.dto';
+import { UpdateIngredienteRemovivelDto } from './dto/update-ingrediente-removivel.dto';
 
 @Controller('ingredientes-removiveis')
 export class IngredientesRemoviveisController {
-  constructor(private readonly ingredientesRemoviveisService: IngredientesRemoviveisService) {}
+  constructor(
+    private readonly ingredientesRemoviveisService: IngredientesRemoviveisService,
+  ) {}
 
   @Post()
-  create(@Body() createIngredientesRemoviveiDto: CreateIngredientesRemoviveiDto) {
-    return this.ingredientesRemoviveisService.create(createIngredientesRemoviveiDto);
+  create(@Body() createIngredienteRemovivelDto: CreateIngredienteRemovivelDto) {
+    return this.ingredientesRemoviveisService.create(
+      createIngredienteRemovivelDto,
+    );
   }
 
   @Get()
@@ -23,8 +35,14 @@ export class IngredientesRemoviveisController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateIngredientesRemoviveiDto: UpdateIngredientesRemoviveiDto) {
-    return this.ingredientesRemoviveisService.update(+id, updateIngredientesRemoviveiDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateIngredienteRemovivelDto: UpdateIngredienteRemovivelDto,
+  ) {
+    return this.ingredientesRemoviveisService.update(
+      +id,
+      updateIngredienteRemovivelDto,
+    );
   }
 
   @Delete(':id')

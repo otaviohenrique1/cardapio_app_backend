@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
 import { UpdatePedidoDto } from './dto/update-pedido.dto';
+import { Pedido } from './entities/pedido.entity';
 
 @Injectable()
 export class PedidosService {
-  create(createPedidoDto: CreatePedidoDto) {
-    return 'This action adds a new pedido';
+  constructor(
+    @InjectRepository(Pedido)
+    private pedidoRepository: Repository<Pedido>,
+  ) {}
+
+  create(createPedidoDto: CreatePedidoDto): Promise<CreatePedidoDto & Pedido> {
+    return this.pedidoRepository.save(createPedidoDto);
   }
 
-  findAll() {
-    return `This action returns all pedidos`;
+  findAll(): Promise<Pedido[]> {
+    return this.pedidoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pedido`;
+  findOne(id: number): Promise<Pedido> {
+    return this.pedidoRepository.findOneBy({ id });
   }
 
-  update(id: number, updatePedidoDto: UpdatePedidoDto) {
-    return `This action updates a #${id} pedido`;
+  update(id: number, updatePedidoDto: UpdatePedidoDto): Promise<UpdateResult> {
+    return this.pedidoRepository.update(id, updatePedidoDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pedido`;
+  async remove(id: number): Promise<void> {
+    await this.pedidoRepository.delete(id);
   }
 }

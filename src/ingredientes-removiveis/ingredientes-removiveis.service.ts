@@ -1,26 +1,44 @@
 import { Injectable } from '@nestjs/common';
-import { CreateIngredientesRemoviveiDto } from './dto/create-ingredientes-removivei.dto';
-import { UpdateIngredientesRemoviveiDto } from './dto/update-ingredientes-removivei.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, UpdateResult } from 'typeorm';
+import { CreateIngredienteRemovivelDto } from './dto/create-ingrediente-removivel.dto';
+import { UpdateIngredienteRemovivelDto } from './dto/update-ingrediente-removivel.dto';
+import { IngredienteRemovivel } from './entities/ingrediente-removivel.entity';
 
 @Injectable()
 export class IngredientesRemoviveisService {
-  create(createIngredientesRemoviveiDto: CreateIngredientesRemoviveiDto) {
-    return 'This action adds a new ingredientesRemovivei';
+  constructor(
+    @InjectRepository(IngredienteRemovivel)
+    private ingredienteRemovivelRepository: Repository<IngredienteRemovivel>,
+  ) {}
+
+  create(
+    createIngredienteRemovivelDto: CreateIngredienteRemovivelDto,
+  ): Promise<CreateIngredienteRemovivelDto & IngredienteRemovivel> {
+    return this.ingredienteRemovivelRepository.save(
+      createIngredienteRemovivelDto,
+    );
   }
 
-  findAll() {
-    return `This action returns all ingredientesRemoviveis`;
+  findAll(): Promise<IngredienteRemovivel[]> {
+    return this.ingredienteRemovivelRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} ingredientesRemovivei`;
+  findOne(id: number): Promise<IngredienteRemovivel> {
+    return this.ingredienteRemovivelRepository.findOneBy({ id });
   }
 
-  update(id: number, updateIngredientesRemoviveiDto: UpdateIngredientesRemoviveiDto) {
-    return `This action updates a #${id} ingredientesRemovivei`;
+  update(
+    id: number,
+    updateIngredienteRemovivelDto: UpdateIngredienteRemovivelDto,
+  ): Promise<UpdateResult> {
+    return this.ingredienteRemovivelRepository.update(
+      id,
+      updateIngredienteRemovivelDto,
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} ingredientesRemovivei`;
+  async remove(id: number): Promise<void> {
+    await this.ingredienteRemovivelRepository.delete(id);
   }
 }

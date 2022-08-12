@@ -1,26 +1,39 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CreatePedidoItemDto } from './dto/create-pedido-item.dto';
 import { UpdatePedidoItemDto } from './dto/update-pedido-item.dto';
+import { PedidoItem } from './entities/pedido-item.entity';
 
 @Injectable()
 export class PedidoItemService {
-  create(createPedidoItemDto: CreatePedidoItemDto) {
-    return 'This action adds a new pedidoItem';
+  constructor(
+    @InjectRepository(PedidoItem)
+    private pedidoItemRepository: Repository<PedidoItem>,
+  ) {}
+
+  create(
+    createPedidoItemDto: CreatePedidoItemDto,
+  ): Promise<CreatePedidoItemDto & PedidoItem> {
+    return this.pedidoItemRepository.save(createPedidoItemDto);
   }
 
-  findAll() {
-    return `This action returns all pedidoItem`;
+  findAll(): Promise<PedidoItem[]> {
+    return this.pedidoItemRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pedidoItem`;
+  findOne(id: number): Promise<PedidoItem> {
+    return this.pedidoItemRepository.findOneBy({ id });
   }
 
-  update(id: number, updatePedidoItemDto: UpdatePedidoItemDto) {
-    return `This action updates a #${id} pedidoItem`;
+  update(
+    id: number,
+    updatePedidoItemDto: UpdatePedidoItemDto,
+  ): Promise<UpdateResult> {
+    return this.pedidoItemRepository.update(id, updatePedidoItemDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pedidoItem`;
+  async remove(id: number): Promise<void> {
+    await this.pedidoItemRepository.delete(id);
   }
 }

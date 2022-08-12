@@ -1,15 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { IngredientesOpcionaisService } from './ingredientes-opcionais.service';
-import { CreateIngredientesOpcionaiDto } from './dto/create-ingredientes-opcionai.dto';
-import { UpdateIngredientesOpcionaiDto } from './dto/update-ingredientes-opcionai.dto';
+import { CreateIngredienteOpcionalDto } from './dto/create-ingrediente-opcional.dto';
+import { UpdateIngredienteOpcionalDto } from './dto/update-ingrediente-opcional.dto';
 
 @Controller('ingredientes-opcionais')
 export class IngredientesOpcionaisController {
-  constructor(private readonly ingredientesOpcionaisService: IngredientesOpcionaisService) {}
+  constructor(
+    private readonly ingredientesOpcionaisService: IngredientesOpcionaisService,
+  ) {}
 
   @Post()
-  create(@Body() createIngredientesOpcionaiDto: CreateIngredientesOpcionaiDto) {
-    return this.ingredientesOpcionaisService.create(createIngredientesOpcionaiDto);
+  create(@Body() createIngredienteOpcionalDto: CreateIngredienteOpcionalDto) {
+    return this.ingredientesOpcionaisService.create(
+      createIngredienteOpcionalDto,
+    );
   }
 
   @Get()
@@ -23,8 +35,14 @@ export class IngredientesOpcionaisController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateIngredientesOpcionaiDto: UpdateIngredientesOpcionaiDto) {
-    return this.ingredientesOpcionaisService.update(+id, updateIngredientesOpcionaiDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateIngredienteOpcionalDto: UpdateIngredienteOpcionalDto,
+  ) {
+    return this.ingredientesOpcionaisService.update(
+      +id,
+      updateIngredienteOpcionalDto,
+    );
   }
 
   @Delete(':id')

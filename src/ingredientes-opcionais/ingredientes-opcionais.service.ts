@@ -1,26 +1,44 @@
 import { Injectable } from '@nestjs/common';
-import { CreateIngredientesOpcionaiDto } from './dto/create-ingredientes-opcionai.dto';
-import { UpdateIngredientesOpcionaiDto } from './dto/update-ingredientes-opcionai.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, UpdateResult } from 'typeorm';
+import { CreateIngredienteOpcionalDto } from './dto/create-ingrediente-opcional.dto';
+import { UpdateIngredienteOpcionalDto } from './dto/update-ingrediente-opcional.dto';
+import { IngredienteOpcional } from './entities/ingrediente-opcional.entity';
 
 @Injectable()
 export class IngredientesOpcionaisService {
-  create(createIngredientesOpcionaiDto: CreateIngredientesOpcionaiDto) {
-    return 'This action adds a new ingredientesOpcionai';
+  constructor(
+    @InjectRepository(IngredienteOpcional)
+    private ingredienteOpcionalRepository: Repository<IngredienteOpcional>,
+  ) {}
+
+  create(
+    createIngredientesOpcionaiDto: CreateIngredienteOpcionalDto,
+  ): Promise<CreateIngredienteOpcionalDto & IngredienteOpcional> {
+    return this.ingredienteOpcionalRepository.save(
+      createIngredientesOpcionaiDto,
+    );
   }
 
-  findAll() {
-    return `This action returns all ingredientesOpcionais`;
+  findAll(): Promise<IngredienteOpcional[]> {
+    return this.ingredienteOpcionalRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} ingredientesOpcionai`;
+  findOne(id: number): Promise<IngredienteOpcional> {
+    return this.ingredienteOpcionalRepository.findOneBy({ id });
   }
 
-  update(id: number, updateIngredientesOpcionaiDto: UpdateIngredientesOpcionaiDto) {
-    return `This action updates a #${id} ingredientesOpcionai`;
+  update(
+    id: number,
+    updateIngredienteOpcionalDto: UpdateIngredienteOpcionalDto,
+  ): Promise<UpdateResult> {
+    return this.ingredienteOpcionalRepository.update(
+      id,
+      updateIngredienteOpcionalDto,
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} ingredientesOpcionai`;
+  async remove(id: number): Promise<void> {
+    await this.ingredienteOpcionalRepository.delete(id);
   }
 }

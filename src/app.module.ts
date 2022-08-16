@@ -14,6 +14,16 @@ import { ImagensModule } from './imagens/imagens.module';
 import { PedidoItemModule } from './pedido-item/pedido-item.module';
 import { IngredientesOpcionaisModule } from './ingredientes-opcionais/ingredientes-opcionais.module';
 import { IngredientesRemoviveisModule } from './ingredientes-removiveis/ingredientes-removiveis.module';
+import { Empresa } from './empresas/entities/empresa.entity';
+import { Cliente } from './clientes/entities/cliente.entity';
+import { Produto } from './produtos/entities/produto.entity';
+import { Imagem } from './imagens/entities/imagem.entity';
+import { Ingrediente } from './ingredientes/entities/ingrediente.entity';
+import { IngredienteOpcional } from './ingredientes-opcionais/entities/ingrediente-opcional.entity';
+import { IngredienteRemovivel } from './ingredientes-removiveis/entities/ingrediente-removivel.entity';
+import { Pedido } from './pedidos/entities/pedido.entity';
+import { PedidoItem } from './pedido-item/entities/pedido-item.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -24,9 +34,20 @@ import { IngredientesRemoviveisModule } from './ingredientes-removiveis/ingredie
       username: 'root',
       password: '',
       database: 'cardapio_app_backend',
-      entities: [Administrador],
-      synchronize:
-        true /* AVISO => A configuração synchronize: true não deve ser usada na produção - caso contrário, você poderá perder dados de produção. */,
+      entities: [
+        Administrador,
+        Empresa,
+        Cliente,
+        Produto,
+        Imagem,
+        Ingrediente,
+        IngredienteOpcional,
+        IngredienteRemovivel,
+        Pedido,
+        PedidoItem,
+      ],
+      synchronize: false,
+      // synchronize: true /* AVISO => A configuração synchronize: true não deve ser usada na produção - caso contrário, você poderá perder dados de produção. */,
     }),
     AdministradorModule,
     EmpresasModule,
@@ -34,10 +55,11 @@ import { IngredientesRemoviveisModule } from './ingredientes-removiveis/ingredie
     ProdutosModule,
     IngredientesModule,
     ImagensModule,
-    PedidosModule,
-    PedidoItemModule,
     IngredientesOpcionaisModule,
     IngredientesRemoviveisModule,
+    PedidosModule,
+    PedidoItemModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

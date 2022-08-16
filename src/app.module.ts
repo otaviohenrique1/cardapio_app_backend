@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdministradorModule } from './administrador/administrador.module';
 import { DataSource } from 'typeorm';
@@ -24,6 +22,26 @@ import { IngredienteRemovivel } from './ingredientes-removiveis/entities/ingredi
 import { Pedido } from './pedidos/entities/pedido.entity';
 import { PedidoItem } from './pedido-item/entities/pedido-item.entity';
 import { AuthModule } from './auth/auth.module';
+import { AdministradorController } from './administrador/administrador.controller';
+import { ClientesController } from './clientes/clientes.controller';
+import { EmpresasController } from './empresas/empresas.controller';
+import { ImagensController } from './imagens/imagens.controller';
+import { IngredientesOpcionaisController } from './ingredientes-opcionais/ingredientes-opcionais.controller';
+import { IngredientesRemoviveisController } from './ingredientes-removiveis/ingredientes-removiveis.controller';
+import { IngredientesController } from './ingredientes/ingredientes.controller';
+import { PedidoItemController } from './pedido-item/pedido-item.controller';
+import { PedidosController } from './pedidos/pedidos.controller';
+import { ProdutosController } from './produtos/produtos.controller';
+import { AdministradorService } from './administrador/administrador.service';
+import { ClientesService } from './clientes/clientes.service';
+import { EmpresasService } from './empresas/empresas.service';
+import { ImagensService } from './imagens/imagens.service';
+import { IngredientesOpcionaisService } from './ingredientes-opcionais/ingredientes-opcionais.service';
+import { IngredientesRemoviveisService } from './ingredientes-removiveis/ingredientes-removiveis.service';
+import { IngredientesService } from './ingredientes/ingredientes.service';
+import { PedidoItemService } from './pedido-item/pedido-item.service';
+import { PedidosService } from './pedidos/pedidos.service';
+import { ProdutosService } from './produtos/produtos.service';
 
 @Module({
   imports: [
@@ -61,8 +79,30 @@ import { AuthModule } from './auth/auth.module';
     PedidoItemModule,
     AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [
+    AdministradorController,
+    EmpresasController,
+    ClientesController,
+    ProdutosController,
+    IngredientesController,
+    ImagensController,
+    IngredientesOpcionaisController,
+    IngredientesRemoviveisController,
+    PedidosController,
+    PedidoItemController,
+  ],
+  providers: [
+    AdministradorService,
+    EmpresasService,
+    ClientesService,
+    ProdutosService,
+    IngredientesService,
+    ImagensService,
+    IngredientesOpcionaisService,
+    IngredientesRemoviveisService,
+    PedidosService,
+    PedidoItemService,
+  ],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}
